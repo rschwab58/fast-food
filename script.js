@@ -11,6 +11,9 @@ var cholestral = getColumn(url, 8);
 var saturatedFats= getColumn(url, 9);
 var sodium = getColumn(url, 10);
 
+//this function is making a list of meals that are in the catagorie of pizza
+//
+
 function specificMealName(typeOfFood){
     var specificMealName =[]
     for(var i=0; i < typeOfFoods.length; i++) {
@@ -23,7 +26,7 @@ function specificMealName(typeOfFood){
     }
     return specificMealName;
 }
-//console.log(specificMealName("pizza"))
+console.log(specificMealName("pizza"))
 
 function specificResturantName(typeOfFoodAtResturant){
     var specificResturantName =[]
@@ -37,7 +40,7 @@ function specificResturantName(typeOfFoodAtResturant){
     }
     return specificResturantName;
 }
-//console.log(specificResturantName("pizza"))
+console.log(specificResturantName("pizza"))
 
 
 
@@ -56,7 +59,7 @@ function amountOfProteinInAMeal(nameOfResturant){
         }
         return proteinInAMeal;
     }
-//console.log(amountOfProteinInAMeal("wendy"))
+console.log(amountOfProteinInAMeal("wendy"))
 
 function averageAmountOfCaloriesPerResturant(nameOfResturant){
     var toltalCaloriesInAMeal = 0; 
@@ -72,26 +75,22 @@ function averageAmountOfCaloriesPerResturant(nameOfResturant){
     }
         return toltalCaloriesInAMeal/numInGroup;
 }
-//console.log(averageAmountOfCaloriesPerResturant("wendy"))
+console.log(averageAmountOfCaloriesPerResturant("wendy"))
 
-function minAmountOfCaloriesInAMeal(nameOfResturant){
-    var caloriesInMeal = 500;
+function minAmountOfCaloriesInAMeal(foodType){
+    var minCaloriesInMeal = 500000000;
+    var lowestCalItem = ""
     for(var i=0; i < resturant.length; i++){
-        if(resturant[i].toLowerCase().includes(nameOfResturant.toLowerCase() )){
-            caloriesInMeal 
+        // console.log(typeOfFoods[i])
+        if(typeOfFoods[i].toLowerCase().includes(foodType.toLowerCase()) && minCaloriesInMeal > parseFloat(calories[i])){
+            minCaloriesInMeal = parseFloat(calories[i]);
+            lowestCalItem = mealName[i];
             }
-        }
-        if (proteinInAMeal.length == 0){
-            proteinInAMeal.push("resturant not found")
-        }
-        return proteinInAMeal;
     }
-
-var mostAmountElected = 0;
-var partyElectedMost = ""; 
-for(var i=0; i < uniquePartyCounts.length; i++){
-    if(mostAmountElected < uniquePartyCounts[i] ){
-       mostAmountElected = uniquePartyCounts[i];
-       partyElectedMost = uniqueParties[i]
-}}
-console.log(partyElectedMost)
+    if (lowestCalItem.length == 0){
+        return "type not found"
+    }
+    return lowestCalItem + ", and has calories " + minCaloriesInMeal ;
+       
+    }
+console.log(minAmountOfCaloriesInAMeal("pizza"))
