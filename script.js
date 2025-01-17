@@ -11,9 +11,6 @@ var cholestral = getColumn(url, 8);
 var saturatedFats= getColumn(url, 9);
 var sodium = getColumn(url, 10);
 
-//this function is making a list of meals that are in the catagorie of pizza
-//
-
 function specificMealName(typeOfFood){
     var specificMealName =[]
     for(var i=0; i < typeOfFoods.length; i++) {
@@ -94,3 +91,28 @@ function minAmountOfCaloriesInAMeal(foodType){
        
     }
 console.log(minAmountOfCaloriesInAMeal("pizza"))
+
+function getColumn(url, columnNumber){
+    var column = [];
+    var table = [];
+    var request = new XMLHttpRequest();  
+    request.open("GET", url, false);   
+    request.send(null);  
+    var csvData = new Array();
+    var jsonObject = request.responseText.split(/\r?\n|\r/);
+    for (var i = 0; i < jsonObject.length; i++) {
+      csvData.push(jsonObject[i].split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/));
+    }
+    table = csvData;
+    column = getCol(table, columnNumber);
+    return column;
+  }
+  
+  //returns the specified column from a 2D Array
+  function getCol(matrix, col){
+         var column = [];
+         for(var i=1; i<matrix.length-1; i++){
+            column.push(matrix[i][col]);
+         }
+         return column;
+      }
